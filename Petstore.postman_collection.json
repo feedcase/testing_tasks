@@ -1,0 +1,264 @@
+{
+	"info": {
+		"_postman_id": "1fdbc8f6-86cc-40c6-b382-cf84a41f6e7c",
+		"name": "Petstore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Creating",
+			"item": [
+				{
+					"name": "Create a pet record",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest('Get a pet record')"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('Name to equal data', function () {\r",
+									"    const data = pm.response.json()\r",
+									"    pm.expect(data.name).to.eql(pm.environment.get('dogBreed'))\r",
+									"});\r",
+									"\r",
+									"pm.test('Status is available', function () {\r",
+									"    const data = pm.response.json()\r",
+									"    pm.expect(data.status).to.eql(pm.environment.get('status'))\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"{{petId}}\",\r\n  \"category\": {\r\n    \"id\": 40,\r\n    \"name\": \"Dog\"\r\n  },\r\n  \"name\": \"{{dogBreed}}\",\r\n  \"photoUrls\": [\r\n    \"https://cdn.britannica.com/60/8160-050-08CCEABC/German-shepherd.jpg\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 23,\r\n      \"name\": \"Shepherd\"\r\n    }\r\n  ],\r\n  \"status\": \"{{status}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{mainURL}}",
+							"host": [
+								"{{mainURL}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Getting",
+			"item": [
+				{
+					"name": "Bad id get request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Statuse code 404', function () {\r",
+									"    pm.response.to.have.status(404)\r",
+									"});\r",
+									"\r",
+									"pm.test('Response message is \"Pet not found\"', function () {\r",
+									"    const data = pm.response.json()\r",
+									"    pm.expect(data.message).to.eql(\"Pet not found\")\r",
+									"});\r",
+									"\r",
+									"pm.test('Response type is \"error\"', function () {\r",
+									"    const data = pm.response.json()\r",
+									"    pm.expect(data.type).to.eql(\"error\")\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mainURL}}{{nonExistingPetId}}",
+							"host": [
+								"{{mainURL}}{{nonExistingPetId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a pet record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('Name to equal data', function () {\r",
+									"    const data = pm.response.json()\r",
+									"    pm.expect(data.name).to.eql(pm.environment.get('dogBreed'))\r",
+									"});\r",
+									"\r",
+									"pm.test('Status is available', function () {\r",
+									"    const data = pm.response.json()\r",
+									"    pm.expect(data.status).to.eql(pm.environment.get('status'))\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mainURL}}{{petId}}",
+							"host": [
+								"{{mainURL}}{{petId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Updating",
+			"item": [
+				{
+					"name": "Update a pet record",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// postman.setNextRequest('Get a pet record')\r",
+									"pm.environment.set(\"dogBreed\", \"New Breed\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('Name to equal data', function () {\r",
+									"    const data = pm.response.json()\r",
+									"    pm.expect(data.name).to.eql(pm.environment.get('dogBreed'))\r",
+									"});\r",
+									"\r",
+									"pm.test('Status is available', function () {\r",
+									"    const data = pm.response.json()\r",
+									"    pm.expect(data.status).to.eql(pm.environment.get('status'))\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"{{petId}}\",\r\n  \"category\": {\r\n    \"id\": 40,\r\n    \"name\": \"Dog\"\r\n  },\r\n  \"name\": \"{{dogBreed}}\",\r\n  \"photoUrls\": [\r\n    \"https://cdn.britannica.com/60/8160-050-08CCEABC/German-shepherd.jpg\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 23,\r\n      \"name\": \"Shepherd\"\r\n    }\r\n  ],\r\n  \"status\": \"{{status}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{mainURL}}",
+							"host": [
+								"{{mainURL}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deleting",
+			"item": [
+				{
+					"name": "Delete a pet record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('Response message is Pet ID', function () {\r",
+									"    const data = pm.response.json()\r",
+									"    pm.expect(data.message).to.eql(pm.environment.get(\"petId\"))\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"petId\", 236)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"nonExistingPetId\", pm.environment.get(\"petId\"));\r",
+									"// postman.setNextRequest(\"Bad id get request\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{mainURL}}{{petId}}",
+							"host": [
+								"{{mainURL}}{{petId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "mainURL",
+			"value": "https://petstore.swagger.io/v2/pet"
+		}
+	]
+}
