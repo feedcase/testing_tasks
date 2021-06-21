@@ -62,6 +62,38 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Upload image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "petId",
+									"value": "{{petId}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{mainURL}}{{petId}}/uploadImage",
+							"host": [
+								"{{mainURL}}{{petId}}"
+							],
+							"path": [
+								"uploadImage"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -141,6 +173,39 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Find by status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mainURL}}findByStatus?status={{status}}",
+							"host": [
+								"{{mainURL}}findByStatus"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "{{status}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -198,6 +263,61 @@
 							"raw": "{{mainURL}}",
 							"host": [
 								"{{mainURL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a pet record via post request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// postman.setNextRequest('Get a pet record')"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('Name to equal data', function () {\r",
+									"    const data = pm.response.json()\r",
+									"    pm.expect(data.name).to.eql(pm.environment.get('dogBreed'))\r",
+									"});\r",
+									"\r",
+									"pm.test('Status is available', function () {\r",
+									"    const data = pm.response.json()\r",
+									"    pm.expect(data.status).to.eql(pm.environment.get('status'))\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"{{petId}}\",\r\n  \"category\": {\r\n    \"id\": 40,\r\n    \"name\": \"Dog\"\r\n  },\r\n  \"name\": \"{{dogBreed}}\",\r\n  \"photoUrls\": [\r\n    \"https://cdn.britannica.com/60/8160-050-08CCEABC/German-shepherd.jpg\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 23,\r\n      \"name\": \"Shepherd\"\r\n    }\r\n  ],\r\n  \"status\": \"{{status}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{mainURL}}{{petId}}",
+							"host": [
+								"{{mainURL}}{{petId}}"
 							]
 						}
 					},
