@@ -7,6 +7,10 @@ class TextInputLocators:
     LOCATOR_BUTTON = (By.XPATH, "/html//button[@id='updatingButton']")
 
 
+class DynamicIDLocators:
+    LOCATOR_BUTTON = (By.XPATH, "/html//section//button[@class='btn btn-primary']")
+
+
 class ScrollBarsLocators:
     LOCATOR_HIDING_BUTTON = (By.XPATH, "/html//button[@id='hidingButton']")
 
@@ -47,7 +51,7 @@ class SampleAppLocators:
 
 
 class MouseOverLocators:
-    LOCATOR_LINK = (By.XPATH, "/html//section//a[@title='Click me']")
+    LOCATOR_LINK = (By.XPATH, "/html//section//a[text()='Click me']")
     LOCATOR_CLICK_COUNTER = (By.XPATH, "/html//span[@id='clickCount']")
 
 
@@ -73,6 +77,14 @@ class ScrollBarsHelper(BasePage):
 
     def button_click(self):
         button = self.find_element(ScrollBarsLocators.LOCATOR_HIDING_BUTTON)
+        button.click()
+        return True
+
+
+class DynamicIDHelper(BasePage):
+
+    def button_click(self):
+        button = self.find_element(DynamicIDLocators.LOCATOR_BUTTON)
         button.click()
         return True
 
