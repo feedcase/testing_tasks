@@ -23,7 +23,7 @@ class TestPageUI(unittest.TestCase):
         # driver = webdriver.Remote(
         #     command_executor="http://localhost:4444/wd/hub",
         #     desired_capabilities=capabilities)
-        driver = webdriver.Chrome('/var/jenkins_home/workspace/Test_UI_Testing_Playground/chromedriver')
+        driver = webdriver.Chrome()
         driver.maximize_window()
         cls.driver = driver
 
