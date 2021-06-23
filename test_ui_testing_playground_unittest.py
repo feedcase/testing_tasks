@@ -23,7 +23,11 @@ class TestPageUI(unittest.TestCase):
         # driver = webdriver.Remote(
         #     command_executor="http://localhost:4444/wd/hub",
         #     desired_capabilities=capabilities)
-        driver = webdriver.Chrome()
+        driver_location = '/usr/bin/chromedriver'
+        binary_location = '/usr/bin/google-chrome'
+        options = webdriver.ChromeOptions()
+        options.binary_location = binary_location
+        driver = webdriver.Chrome(executable_path=driver_location, chrome_options=options)
         driver.maximize_window()
         cls.driver = driver
 
