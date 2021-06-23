@@ -26,6 +26,8 @@ class TestPageUI(unittest.TestCase):
         driver_location = '/usr/bin/chromedriver'
         binary_location = '/usr/bin/google-chrome'
         options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
         options.binary_location = binary_location
         driver = webdriver.Chrome(executable_path=driver_location, chrome_options=options)
         driver.maximize_window()
