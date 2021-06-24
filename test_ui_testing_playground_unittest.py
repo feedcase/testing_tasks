@@ -1,6 +1,5 @@
 import unittest
 from selenium import webdriver
-import os
 
 from UITestingPlaygroundPages import *
 
